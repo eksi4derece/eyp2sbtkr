@@ -25,7 +25,7 @@ class nesne:
             denemekodu, plaka = sms.split(b"\n\n")
             if self.last == sms: continue
             self.last = sms
-            hizli, arg = plaka.split(b" ")
+            hizli, arg = plaka.split(b" ")[0], b" ".join(plaka.split(b" ")[1:])
             if arg == b"|": arg = b""
             self.yurut(int(hizli.decode()),arg)
 
