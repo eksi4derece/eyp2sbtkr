@@ -19,15 +19,18 @@ class nesne:
 
     def kos(self):
         while True:
-            time.sleep(1)
-            sms = req.urlopen(self.url).read().strip()
-            print(sms)
-            denemekodu, plaka = sms.split(b"\n\n")
-            if self.last == sms: continue
-            self.last = sms
-            hizli, arg = plaka.split(b" ")[0], b" ".join(plaka.split(b" ")[1:])
-            if arg == b"|": arg = b""
-            self.yurut(int(hizli.decode()),arg)
+            try:
+                time.sleep(1)
+                sms = req.urlopen(self.url).read().strip()
+                print(sms)
+                denemekodu, plaka = sms.split(b"\n\n")
+                if self.last == sms: continue
+                self.last = sms
+                hizli, arg = plaka.split(b" ")[0], b" ".join(plaka.split(b" ")[1:])
+                if arg == b"|": arg = b""
+                self.yurut(int(hizli.decode()),arg)
+            except Exception as e:
+                print(e)
 
     def yurut(self,ind,arg):
         komut = self.hizlikomutlar[ind] + arg.decode()
